@@ -32,8 +32,8 @@ public class RetiradaChaveUI extends JFrame{
 
     private void initUI() {
         setTitle("Retirada de Chave");
-        setSize(300, 200);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Apenas fecha esta janela
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Apenas fecha esta janela
         setLocationRelativeTo(null);
        // setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

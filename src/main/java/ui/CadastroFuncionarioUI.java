@@ -32,8 +32,10 @@ public class CadastroFuncionarioUI extends JFrame{
     
     private void initUI() {
         setTitle("Cadastro de Funcionário");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Apenas fecha esta janela
+        setLocationRelativeTo(null);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         nomeField = new JTextField(20);
         cargoField = new JTextField(20);

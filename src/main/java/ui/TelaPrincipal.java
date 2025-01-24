@@ -22,6 +22,81 @@ public class TelaPrincipal extends JFrame {
     private JButton btnRetiradaChave;
     private JButton btnDevolucaoChave;
     private JButton btnRelatorio;
+    private JButton btnCadastrarChave; // Novo botão
+
+    private JTable tabelaChaves;
+    private DefaultTableModel modeloTabela;
+
+    private FuncionarioService funcionarioService;
+    private RegistroService registroService;
+
+    public TelaPrincipal(FuncionarioService funcionarioService, RegistroService registroService) {
+        this.funcionarioService = funcionarioService;
+        this.registroService = registroService;
+        initUI();
+    }
+
+    private void initUI() {
+        // Botões
+        btnCadastroFuncionario = new JButton("Cadastro de Funcionário");
+        btnRetiradaChave = new JButton("Retirada de Chave");
+        btnDevolucaoChave = new JButton("Devolução de Chave");
+        btnRelatorio = new JButton("Relatório");
+        btnCadastrarChave = new JButton("Cadastrar Chave"); // Criando o botão
+
+        // Ações dos botões
+        btnCadastroFuncionario.addActionListener(e -> new CadastroFuncionarioUI(funcionarioService).setVisible(true));
+        btnRetiradaChave.addActionListener(e -> new RetiradaChaveUI(registroService).setVisible(true));
+        btnDevolucaoChave.addActionListener(e -> new DevolucaoChaveUI(registroService).setVisible(true));
+        btnRelatorio.addActionListener(e -> new RelatorioUI().setVisible(true));
+        btnCadastrarChave.addActionListener(e -> new CadastroChaveUI().setVisible(true)); // Ação do botão
+
+        // Painel de botões
+        JPanel panelBotoes = new JPanel();
+        panelBotoes.setLayout(new GridLayout(1, 5, 10, 10)); // Ajustar para 5 botões
+        panelBotoes.add(btnCadastroFuncionario);
+        panelBotoes.add(btnCadastrarChave); // Adiciona o botão ao painel
+        panelBotoes.add(btnRetiradaChave);
+        panelBotoes.add(btnDevolucaoChave);
+        panelBotoes.add(btnRelatorio);
+
+        // Tabela para exibir as chaves
+        modeloTabela = new DefaultTableModel(new Object[]{"ID", "Chave", "Status"}, 0);
+        tabelaChaves = new JTable(modeloTabela);
+        JScrollPane scrollPane = new JScrollPane(tabelaChaves);
+
+        // Atualizar a tabela com os dados das chaves
+        atualizarTabela();
+
+        // Layout principal
+        setLayout(new BorderLayout());
+        add(panelBotoes, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+
+        setTitle("Tela Principal");
+        setSize(800, 600);
+        setLocationRelativeTo(null); // Centraliza a janela na tela
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void atualizarTabela() {
+        // Exemplo: Obter as chaves do RegistroService
+        modeloTabela.setRowCount(0); // Limpar a tabela
+        registroService.obterChavesEmprestadas().forEach(chave -> {
+            modeloTabela.addRow(new Object[]{chave.getId(), chave.getDescricao(), chave.getStatus()});
+        });
+    }
+}
+
+
+
+/* antes Adicionar Botão Cadastrar Chave
+public class TelaPrincipal extends JFrame {
+    
+    private JButton btnCadastroFuncionario;
+    private JButton btnRetiradaChave;
+    private JButton btnDevolucaoChave;
+    private JButton btnRelatorio;
 
     private JTable tabelaChaves;
     private DefaultTableModel modeloTabela;
@@ -69,7 +144,9 @@ public class TelaPrincipal extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         setTitle("Tela Principal");
-        setSize(600, 400);
+        setSize(800, 600);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH); // Opcional: abre maximizado
+        setLocationRelativeTo(null); // Centraliza a janela na tela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -82,6 +159,7 @@ public class TelaPrincipal extends JFrame {
     }
 }
 
+*/
 
 /**
 codigo antes implementar tela de chaves emprestadas

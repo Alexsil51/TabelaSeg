@@ -34,7 +34,9 @@ public class DevolucaoChaveUI extends JFrame{
     private void initUI() {
         setTitle("Devolução de Chave");
         setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Apenas fecha esta janela
+        setLocationRelativeTo(null);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         registroIdField = new JTextField(20);
         salvarButton = new JButton("Salvar");

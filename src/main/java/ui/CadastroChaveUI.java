@@ -28,7 +28,7 @@ public class CadastroChaveUI extends JFrame {
 
         // Configurar a tela de cadastro de chaves
         setTitle("Cadastro de Chaves");
-        setSize(300, 200);
+        setSize(400, 200);
         setLayout(new GridLayout(3, 2));
 
         JLabel lblDescricao = new JLabel("Descrição:");
