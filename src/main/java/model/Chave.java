@@ -23,6 +23,56 @@ public class Chave {
         this.status = status;
     }
 
+    // Construtor parcial (com status padrão)
+    public Chave(int id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+        this.status = "Disponível"; // Status padrão
+    }
+
+    // Getters e setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
+
+
+
+
+
+/*
+public class Chave {
+    private int id;
+    private String descricao;
+    private String status;
+
+    // Construtor completo
+    public Chave(int id, String descricao, String status) {
+        this.id = id;
+        this.descricao = descricao;
+        this.status = status;
+    }
+
     // Construtor parcial
     public Chave(int id, String descricao) {
         this.id = id;

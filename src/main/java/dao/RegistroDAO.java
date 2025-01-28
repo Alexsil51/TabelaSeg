@@ -10,7 +10,6 @@ package dao;
  */
 
 import model.Registro;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,6 +47,7 @@ public class RegistroDAO {
         }
     }
 
+    /*
     // Método para atualizar um registro existente
     public void atualizar(Registro registro) {
         String sql = "UPDATE Registros SET chave_id = ?, funcionario_id = ?, data_retirada = ?, data_devolucao = ? WHERE id = ?";
@@ -63,6 +63,47 @@ public class RegistroDAO {
             e.printStackTrace();
         }
     }
+
+*/
+    
+    // Método para atualizar um registro existente
+public void atualizar(Registro registro) {
+    String sql = "UPDATE Registros SET chave_id = ?, funcionario_id = ?, data_retirada = ?, data_devolucao = ? WHERE id = ?";
+    try (Connection conn = DriverManager.getConnection(url, user, password);
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, registro.getChaveId());
+        stmt.setInt(2, registro.getFuncionarioId());
+        stmt.setObject(3, registro.getDataRetirada());
+        stmt.setObject(4, registro.getDataDevolucao());
+        stmt.setInt(5, registro.getId());
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+// Método para registrar a devolução de uma chave (adicionado)
+public void devolverChave(int registroId) {
+    String sqlUpdate = "UPDATE Registros SET data_devolucao = ?, status = ? WHERE id = ?";
+    
+    try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+            stmtUpdate.setObject(1, LocalDateTime.now());  // Data de devolução (agora)
+            stmtUpdate.setString(2, "Devolvida");  // Status indicando que a chave foi devolvida
+            stmtUpdate.setInt(3, registroId);  // O ID do registro a ser atualizado
+            stmtUpdate.executeUpdate();  // Executando a atualização
+            
+            // Log para depuração
+            System.out.println("Executando update para o registro com ID: " + registroId);
+            System.out.println("Novo status: Devolvida, Novo horário: " + LocalDateTime.now());
+
+            stmtUpdate.executeUpdate();  // Executando a atualização
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 
     // Método para deletar um registro pelo ID
     public void deletar(int id) {

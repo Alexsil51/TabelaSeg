@@ -30,3 +30,12 @@ SELECT * FROM Chaves;
 SELECT COUNT(*) FROM Chaves;  -- Retorna o número total de registros na tabela Chaves
 SELECT * FROM Funcionarios;
 SELECT * FROM Registros;
+
+DESCRIBE Chaves;
+DESCRIBE Funcionarios;
+DESCRIBE Registros;
+
+INSERT INTO funcionarios (nome, cargo, salario) VALUES ('Teste', 'Desenvolvedor', 3000.00);
+SELECT * FROM Registros WHERE id = 4;
+ALTER TABLE Registros ADD COLUMN status VARCHAR(20) DEFAULT 'Retirada';
+UPDATE Registros SET status = 'Devolvida' WHERE id = 4;
